@@ -7,8 +7,8 @@ class User(db.Model):
     nombre = db.Column(db.String(80), nullable=False)
     apellido = db.Column(db.String(80), nullable=False)
     password = db.Column(db.String(250), nullable=False)
-    dni = db.Column(db.String(20), unique= True,  nullable=False)
-    celular = db.Column(db.String(20), nullable = True)
+    dni = db.Column(db.Integer, unique= True,  nullable=False)
+    celular = db.Column(db.Integer, nullable = True)
     is_logged_in = db.Column(db.Boolean)
 
     def __init__(self, nombre, apellido, password, dni, celular):
@@ -24,11 +24,12 @@ class Tarjeta(db.Model):
 
     id = db.Column(db.Integer, primary_key = True)
     user = db.Column(db.Integer, db.ForeignKey('usuarios.dni'), nullable=False)
-    cbu = db.Column(db.Integer,  nullable=False)
+    cbu = db.Column(db.Integer, unique=True,  nullable=False)
     saldo = db.Column(db.Float, nullable= False)
 
-    def __init__(self, user, saldo):
+    def __init__(self, user, cbu, saldo):
         self.user = user
+        self.cbu = cbu
         self.saldo = saldo
 
 class Transaccion(db.Model):

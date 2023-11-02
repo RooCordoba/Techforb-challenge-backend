@@ -1,6 +1,14 @@
-from flask_restx import Resource
+from flask_restx import Resource, reqparse
 from ...utils.extensions import api, ns_users
-from ...utils.user_utils import *
+from ...utils.user_utils import user_exist, crear_user
+
+# Hace que los endpoints tengan una interfaz mas amigable a la hora de rellenar campos
+user_parser = reqparse.RequestParser()
+user_parser.add_argument('nombre', type=str, required= True)
+user_parser.add_argument('apellido', type=str, required= True)
+user_parser.add_argument('password', type=str, required= True)
+user_parser.add_argument('dni', type=int, required= True)
+user_parser.add_argument('celular', type=int, required= False)
 
 # Endpoint para crear usuario  
 @ns_users.route("/crear_usuario")

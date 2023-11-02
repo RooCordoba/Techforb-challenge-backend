@@ -1,14 +1,4 @@
-from flask_restx import reqparse
 from ..db.database import db, User
-
-# Hace que los endpoints tengan una interfaz mas amigable a la hora de rellenar campos
-user_parser = reqparse.RequestParser()
-user_parser.add_argument('nombre', type=str, required= True)
-user_parser.add_argument('apellido', type=str, required= True)
-user_parser.add_argument('password', type=str, required= True)
-user_parser.add_argument('dni', type=str, required= True)
-user_parser.add_argument('celular', type=str, required= False)
-
 
 # Crea un usuario y lo registra en la base de datos
 def crear_user(usuario):
@@ -27,3 +17,31 @@ def user_exist(usuario):
     if db.session.query(User).filter(User.dni == dni).first() is None:
         return False
     return True
+
+
+def get_user(user):
+    dni = user['dni']
+    user_db = db.session.query(User).filter(User.dni == dni).first()
+    return user_db
+
+
+def coinciden_credenciales(user):
+    user_db = get_user(user)
+    if user['password'] == user_db.password:
+        return True
+    return False
+
+def iniciar_sesion(user):
+    user_db = get_user(user)
+    user_db.is_logged_in = True
+    db.session.commit()
+
+def cerrar_sesion(user):
+    user_db = get_user(user)
+    user_db.is_logged_in = False
+    db.session.commit()
+
+def eliminar_usuario(user):
+    user_db = get_user(user)
+    db.session.delete(user_db)
+    db.session.commit()
