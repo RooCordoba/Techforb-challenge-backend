@@ -45,3 +45,7 @@ def eliminar_tarjeta( id_tarjeta):
     db.session.query(Tarjeta)
     db.session.query(Tarjeta).filter(Tarjeta.id == id_tarjeta).delete()
     db.session.commit()
+
+def get_card_by_cbu(cbu):
+    tarjeta = db.session.query(Tarjeta).filter(Tarjeta.cbu == cbu).first()
+    return tarjeta

@@ -38,7 +38,9 @@ class Transaccion(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     tarjeta = db.Column(db.Integer, db.ForeignKey('tarjetas.id'), nullable=False)
     monto = db.Column(db.Float, nullable=False)
+    cbu_destino = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, tarjeta, monto):
+    def __init__(self, tarjeta, monto, cbu_destino):
         self.tarjeta = tarjeta
         self.monto = monto
+        self.cbu_destino = cbu_destino

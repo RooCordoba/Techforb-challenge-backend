@@ -21,7 +21,8 @@ tarjeta_model = api.model("Tarjeta", {
 transaccion_model = api.model("Transaccion",{
     "id": fields.Integer,
     "tarjeta": fields.Integer,
-    "monto": fields.Float
+    "monto": fields.Float,
+    "cbu_destino": fields.Integer
 })
 
 
