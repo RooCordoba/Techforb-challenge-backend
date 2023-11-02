@@ -7,7 +7,8 @@ user_model = api.model("User",{
     "apellido": fields.String,
     "password": fields.String,
     "dni": fields.String,
-    "celular": fields.String
+    "celular": fields.String,
+    "is_logged_in": fields.Boolean
 })
 
 tarjeta_model = api.model("Tarjeta", {

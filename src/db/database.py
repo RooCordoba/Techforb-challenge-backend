@@ -9,12 +9,15 @@ class User(db.Model):
     password = db.Column(db.String(250), nullable=False)
     dni = db.Column(db.String(20), unique= True,  nullable=False)
     celular = db.Column(db.String(20), nullable = True)
+    is_logged_in = db.Column(db.Boolean)
 
-    def __init__(self, nombre, apellido, password, dni):
+    def __init__(self, nombre, apellido, password, dni, celular):
         self.nombre = nombre
         self.apellido = apellido
         self.password = password
         self.dni = dni
+        self.celular = celular
+        self.is_logged_in = False
 
 class Tarjeta(db.Model):
     __tablename__ = 'tarjetas'

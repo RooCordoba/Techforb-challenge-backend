@@ -2,10 +2,13 @@ import os
 from src.db.database import db
 from flask import Flask
 from src.utils.extensions import api
-from src.endpoints import ns_users, ns_tarjetas, ns_transacciones
+from src.endpoints.user import get_all_users, create_user
+
+def crear_app():
+    return Flask(__name__)
 
 # crea la app
-app = Flask(__name__)
+app = crear_app()
 
 # Define el destino de la Base de Datos
 db_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'src/db/techforbDB.db')
@@ -17,8 +20,12 @@ api.init_app(app)
 db.init_app(app)
 db.create_all()
 
-api.add_namespace(ns_users)
-api.add_namespace(ns_tarjetas)
-api.add_namespace(ns_transacciones)
+# Agrego los endpoints de los users
+api.add_namespace(create_user.ns_users)
+api.add_namespace(get_all_users.ns_users)
+
+
+#api.add_namespace(ns_tarjetas)
+#api.add_namespace(ns_transacciones)
 
     
