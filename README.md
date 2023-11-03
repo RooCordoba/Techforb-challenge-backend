@@ -1,28 +1,77 @@
 # Techforb-challenge-backend
-Repositorio para el Challenge de la posicion Dev. Backend
+
+Repositorio para el Challenge de la posicion Dev. Backend para Techforb.
+
+Simula el manejo de un sistema Bancario, con creacion de Usuarios en Base de datos, las tarjetas que generen y las transacciones que se realicen.
+
+## Funcionalidades
+
+### Usuarios
+
+* Creacion de Usuarios
+* Inicio de Sesion
+* Cerrar Sesion
+* Eliminar Usuario
+* Obtener Todos los Usuarios
+
+### Tarjetas
+
+* Pedir Tarjeta
+* Ver Datos de una tarjeta 
+* Eliminar Tarjeta
+
+### Transacciones
+
+* Depositar Dinero
+* Extraer Dinero
+* Transferir Dinero
+* Ver historial de Transacciones
+
 
 ## Prerequisitos
 
-Para poder iniciar el programa es importante tener instalado [Python](https://www.python.org/downloads/)
+* Tener [Git](https://git-scm.com/) instalado 
+* Tener instalado [Python](https://www.python.org/downloads/)
+* (Windows)Tener la Virtualizacion de Windows Activada, link para ver como hacerlo [acá](https://support.microsoft.com/es-es/windows/habilitar-la-virtualizaci%C3%B3n-en-equipos-windows-11-c5578302-6e43-4b4b-a449-8ced115f58e1)
+* Tener instalado Docker
+    * (Windows) Si no lo tienes, descarga e instala Docker Desktop desde [este link](https://www.docker.com/products/docker-desktop/)
 
-Y tener la Virtualizacion de Windows Activada, link para ver como hacerlo [acá](https://support.microsoft.com/es-es/windows/habilitar-la-virtualizaci%C3%B3n-en-equipos-windows-11-c5578302-6e43-4b4b-a449-8ced115f58e1)
+## Clonar Repositorio
 
-Luego, instalar [Docker](https://docs.docker.com/get-docker/)
+```
+git clone https://github.com/RooCordoba/Techforb-challenge-backend.git
+```
+```
+cd Techforb-challenge-backend
+```
 
 ## Para correr el programa
 
-Ingresar en la carpeta raiz del proyecto desde la terminal.
-Colocar el siguiente comando:
+Abrir la aplicacion de Docker Desktop
+
+En la terminal y dentro de la carpeta raiz del proyecto colocar el siguiente comando:
 
 ```
-docker-compose up
+docker build -t techforb_backend .
 ```
 
-Se iniciara el programa en localhost:5000
+Esto instalara todos los requerimientos de requirementes.txt y todo lo necesario para que el proyecto funcione y creará la imagen para luego poder correrla.
 
-
-Para cerrar y limpiar todo:
+Para iniciar el proyecto colocar:
 
 ```
-docker-compose down
+docker run -p 5000:5000 techforb_backend
 ```
+
+Luego se iniciara el programa en localhost:5000, Para interactuar con los endpoints, abrir el navegador e ir a esa direccion.
+
+**Para detener el programa, apretar 'Ctrl + C'**  
+
+
+## Tecnologías utilizadas
+
+* Python
+* Flask
+* Docker
+* SQLAlchemy
+* flask_restx (para una interfaz visual mas amigable en los endpoints)

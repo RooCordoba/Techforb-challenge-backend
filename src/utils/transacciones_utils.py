@@ -23,7 +23,7 @@ def extraer(tarjeta_id, monto):
     db.session.commit()
 
 def hacer_transaccion(user):
-    monto = user['monto_a_depositar']
+    monto = user['monto_a_transferir']
 
     tarjeta = db.session.query(Tarjeta).filter(Tarjeta.id == user['tarjeta_id']).first()
     tarjeta.saldo -= monto

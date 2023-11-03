@@ -1,6 +1,6 @@
 from flask_restx import Resource, reqparse
-from ...utils.extensions import api, ns_users
-from ...utils.user_utils import user_exist, cerrar_sesion
+from src.utils.extensions import api, ns_users
+from src.utils.user_utils import user_exist, cerrar_sesion
 
 user_parser = reqparse.RequestParser()
 user_parser.add_argument('dni', type=str, required= True)

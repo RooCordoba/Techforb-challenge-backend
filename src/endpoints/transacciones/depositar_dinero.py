@@ -1,8 +1,8 @@
 from flask_restx import Resource, reqparse
-from ...utils.extensions import api, ns_transacciones
-from ...utils.user_utils import user_exist, coinciden_credenciales
-from ...utils.transacciones_utils import depositar
-from ...utils.tarjeta_utils import get_all_cards_from_user, tarjeta_existe, get_card_by_id
+from src.utils.extensions import api, ns_transacciones
+from src.utils.user_utils import user_exist, coinciden_credenciales
+from src.utils.transacciones_utils import depositar
+from src.utils.tarjeta_utils import get_all_cards_from_user, tarjeta_existe, get_card_by_id
 
 user_parser = reqparse.RequestParser()
 user_parser.add_argument('dni', type=int, required= True)
@@ -27,6 +27,8 @@ class DepositarDinero(Resource):
             return f'Contraseña Incorrecta', 405
         elif not tarjeta_existe(get_all_cards_from_user(user), user['tarjeta_id']):
             return f'Tarjeta no encontrada', 405
+        elif user['monto_a_depositar']<=0:
+            return f'Monto invalido, para depositar, tiene que ser un numero positivo mayor a 0', 405
         else:
             depositar(user['tarjeta_id'], user['monto_a_depositar'])
             return f'Dinero depositado con éxito, tu saldo en la tarjeta es de: {get_card_by_id(user["tarjeta_id"]).saldo} ', 200

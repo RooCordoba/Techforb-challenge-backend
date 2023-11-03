@@ -1,8 +1,8 @@
-from flask_restx import Resource, reqparse
-from ...utils.extensions import api, ns_tarjetas
-from ...utils.user_utils import user_exist, coinciden_credenciales
-from ...utils.tarjeta_utils import get_all_cards_from_user
-from ...db.models import tarjeta_model
+from flask_restx import Resource, reqparse, abort
+from src.utils.extensions import api, ns_tarjetas
+from src.utils.user_utils import user_exist, coinciden_credenciales
+from src.utils.tarjeta_utils import get_all_cards_from_user
+from src.db.models import tarjeta_model
 
 
 user_parser = reqparse.RequestParser()
@@ -19,10 +19,9 @@ class VerTarjetasPosesion(Resource):
             'dni': args['dni'],
             'password': args['password']
         }
-        if user_exist(user):
-            if coinciden_credenciales(user):
-                return get_all_cards_from_user(user), 200
-            else:
-                return f'Contraseña Incorrecta', 405
+        if not user_exist(user):
+            abort(405,  message="Usuario no Existe")
+        elif not coinciden_credenciales(user):
+            abort(405,  message="Contraseña Inconrrecta")
         else:
-            return f'Usuario no existe', 405
+            return get_all_cards_from_user(user), 200

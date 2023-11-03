@@ -1,6 +1,6 @@
 from flask_restx import Resource, reqparse
-from ...utils.extensions import api, ns_users
-from ...utils.user_utils import user_exist, crear_user
+from src.utils.extensions import api, ns_users
+from src.utils.user_utils import user_exist, crear_user
 
 # Hace que los endpoints tengan una interfaz mas amigable a la hora de rellenar campos
 user_parser = reqparse.RequestParser()

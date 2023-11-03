@@ -1,7 +1,7 @@
 from flask_restx import Resource, reqparse
-from ...utils.extensions import api, ns_tarjetas
-from ...utils.user_utils import user_exist, coinciden_credenciales
-from ...utils.tarjeta_utils import crear_tarjeta_user
+from src.utils.extensions import api, ns_tarjetas
+from src.utils.user_utils import user_exist, coinciden_credenciales
+from src.utils.tarjeta_utils import crear_tarjeta_user
 
 user_parser = reqparse.RequestParser()
 user_parser.add_argument('dni', type=int, required= True)
@@ -16,11 +16,10 @@ class PedirTarjeta(Resource):
             'dni': args['dni'],
             'password': args['password']
         }
-        if user_exist(user):
-            if coinciden_credenciales(user):
-                crear_tarjeta_user(user)
-                return f'Tarjeta Creada con exito', 200
-            else:
-                return f'Contraseña Incorrecta', 405
-        else:
+        if not user_exist(user):
             return f'Usuario no existe', 405
+        elif not coinciden_credenciales(user):
+            return f'Contraseña Incorrecta', 405
+        else:
+            crear_tarjeta_user(user)
+            return f'Tarjeta Creada con exito', 201

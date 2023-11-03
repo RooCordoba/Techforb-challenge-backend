@@ -1,8 +1,8 @@
 from flask_restx import Resource, reqparse
-from ...utils.extensions import api, ns_transacciones
-from ...utils.user_utils import user_exist, coinciden_credenciales
-from ...utils.transacciones_utils import extraer
-from ...utils.tarjeta_utils import get_all_cards_from_user, tarjeta_existe, get_card_by_id
+from src.utils.extensions import api, ns_transacciones
+from src.utils.user_utils import user_exist, coinciden_credenciales
+from src.utils.transacciones_utils import extraer
+from src.utils.tarjeta_utils import get_all_cards_from_user, tarjeta_existe, get_card_by_id
 
 user_parser = reqparse.RequestParser()
 user_parser.add_argument('dni', type=int, required= True)
@@ -28,7 +28,9 @@ class ExtraerDinero(Resource):
         elif not tarjeta_existe(get_all_cards_from_user(user), user['tarjeta_id']):
             return f'Tarjeta no encontrada', 405
         elif get_card_by_id(user['tarjeta_id']).saldo < user['monto_a_extraer']:
-            return f'No hay suficiente saldo en la tarjeta para realizar la extracción', 405
+            return f'No hay suficiente saldo en la tarjeta para realizar la extracción, tu saldo es: {get_card_by_id(user["tarjeta_id"]).saldo}', 405
+        elif user['monto_a_extraer']<=0:
+            return f'Para extraer dinero ingrese un numero positivo mayor a 0',405
         else:
             extraer(user['tarjeta_id'], user['monto_a_extraer'])
             return f'Dinero extraido con éxito, tu saldo en la tarjeta es de: {get_card_by_id(user["tarjeta_id"]).saldo} ', 200

@@ -1,9 +1,9 @@
 from flask_restx import Resource, reqparse, abort
-from ...utils.extensions import api, ns_transacciones
-from ...utils.user_utils import user_exist, coinciden_credenciales
-from ...utils.transacciones_utils import ver_todas_transacciones
-from ...utils.tarjeta_utils import get_all_cards_from_user, tarjeta_existe
-from ...db.models import transaccion_model
+from src.utils.extensions import api, ns_transacciones
+from src.utils.user_utils import user_exist, coinciden_credenciales
+from src.utils.transacciones_utils import ver_todas_transacciones
+from src.utils.tarjeta_utils import get_all_cards_from_user, tarjeta_existe
+from src.db.models import transaccion_model
 
 
 user_parser = reqparse.RequestParser()

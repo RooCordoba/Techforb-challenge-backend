@@ -2,7 +2,7 @@ services:
   app:
     build: .
     container_name: techforb-server
-    command: gunicorn --bind 0.0.0.0:5000 app:app
+    command: gunicorn --bind 0.0.0.0:5000 src.app:app
     ports:
       - 5000:5000
     volumes:

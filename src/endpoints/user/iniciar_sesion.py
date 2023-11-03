@@ -1,6 +1,6 @@
 from flask_restx import Resource, reqparse
-from ...utils.extensions import api, ns_users
-from ...utils.user_utils import user_exist, coinciden_credenciales, iniciar_sesion
+from src.utils.extensions import api, ns_users
+from src.utils.user_utils import user_exist, coinciden_credenciales, iniciar_sesion
 
 user_parser = reqparse.RequestParser()
 user_parser.add_argument('dni', type=str, required= True)
@@ -15,13 +15,13 @@ class IniciarSesion(Resource):
             'dni': args['dni'],
             'password': args['password']
         }
-        if user_exist(user):
-            if coinciden_credenciales(user):
-                iniciar_sesion(user)
-                return f'Inicio de Sesion correcto', 200
-            else:
-                return f'Contraseña Incorrecta', 405
-        else:
+        if not user_exist(user):
             return f'Usuario con DNI no existe', 405
+        elif not coinciden_credenciales(user):
+            return f'Contraseña Incorrecta', 405
+        else:
+            iniciar_sesion(user)
+            return f'Inicio de Sesion correcto', 200
+
         
             

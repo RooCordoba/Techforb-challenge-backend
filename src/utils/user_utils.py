@@ -1,4 +1,4 @@
-from ..db.database import db, User
+from src.db.database import db, User
 
 # Crea un usuario y lo registra en la base de datos
 def crear_user(usuario):
