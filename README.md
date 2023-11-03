@@ -75,3 +75,9 @@ Luego se iniciara el programa en localhost:5000, Para interactuar con los endpoi
 * Docker
 * SQLAlchemy
 * flask_restx (para una interfaz visual mas amigable en los endpoints)
+
+- Imagenes de muestra del proyecto:
+
+![Image Text](https://github.com/RooCordoba/Techforb-challenge-backend/blob/develop/src/images_git/image1.png)
+![Image Text](https://github.com/RooCordoba/Techforb-challenge-backend/blob/develop/src/images_git/image2.png)
+![Image Text](https://github.com/RooCordoba/Techforb-challenge-backend/blob/develop/src/images_git/image3.png)
