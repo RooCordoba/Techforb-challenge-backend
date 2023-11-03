@@ -49,21 +49,29 @@ cd Techforb-challenge-backend
 
 Abrir la aplicacion de Docker Desktop
 
+### Si quiero que la base de datos se me guarde localmente:
+
 En la terminal y dentro de la carpeta raiz del proyecto colocar el siguiente comando:
 
 ```
-docker build -t techforb_backend .
+docker-compose up
 ```
 
-Esto instalara todos los requerimientos de requirementes.txt y todo lo necesario para que el proyecto funcione y creará la imagen para luego poder correrla.
+### Si quiero probar los endpoins en una base de datos en memoria:
 
-Para iniciar el proyecto colocar:
+En la terminal y dentro de la carpeta raiz del proyecto colocar el siguiente comando:
 
 ```
-docker run -p 5000:5000 techforb_backend
+docker build -t techforb-challenge-backend-app .
+```
+```
+docker run -p 5000:5000 techforb-challenge-backend-app
 ```
 
-Luego se iniciara el programa en localhost:5000, Para interactuar con los endpoints, abrir el navegador e ir a esa direccion.
+
+En ambas opciones instalara todos los requerimientos de requirements.txt y todo lo necesario para que el proyecto funcione y creará la imagen para luego poder correrla.
+
+Se iniciara el programa en [localhost:5000](http://localhost:5000/). Para interactuar con los endpoints, ir a esa direccion.
 
 **Para detener el programa, apretar 'Ctrl + C'**  
 

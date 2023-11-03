@@ -7,17 +7,19 @@ from src.endpoints.tarjeta import pedir_tarjeta , ver_tarjetas_en_posesion, elim
 from src.endpoints.transacciones import depositar_dinero, extraer_dinero, transferencia, ver_transacciones_user
 
 
-app = Flask(__name__)
+def create_app():
+    app = Flask(__name__)
+    db_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'db/techforbDB.db')
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + db_path
 
-# Define el destino de la Base de Datos
-db_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'db/techforbDB.db')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + db_path
+    app.app_context().push()
 
-app.app_context().push()
+    api.init_app(app)
+    db.init_app(app)
+    db.create_all()
+    return app
 
-api.init_app(app)
-db.init_app(app)
-db.create_all()
+app = create_app()
 
 # Agrego los endpoints de los users
 api.add_namespace(create_user.ns_users)
